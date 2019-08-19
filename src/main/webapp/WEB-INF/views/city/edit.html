@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit City</title>
+</head>
+<body>
+<h1>Edit City</h1>
+<p>
+    <a th:href="@{/thanhphos}">Back to list city/a>
+</p>
+
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+<form th:action="@{/edit-city}" th:object="${city}" method="post">
+    <input th:type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>City</td>
+            <td><input th:type="text" th:field="*{cityName}"></td>
+        </tr>
+
+        <tr>
+            <td>Country</td>
+            <td>
+                <select th:field="*{country}">
+                    <option th:each="c : ${countries}" th:value="${c.id}" th:text="${c.countryName}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Area</td>
+            <td><input th:type="text" th:field="*{area}"></td>
+        </tr>
+
+        <tr>
+            <td>Population</td>
+            <td><input th:type="text" th:field="*{population}"></td>
+        </tr>
+
+        <tr>
+            <td>GDP</td>
+            <td><input th:type="text" th:field="*{GDP}"></td>
+        </tr>
+
+        <tr>
+            <td>Description</td>
+            <td><textarea th:rows="5" th:cols="20" th:field="*{description}" /></td>
+        </tr>
+
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update"></td>
+        </tr>
+
+    </table>
+</form>
+
+
+
+</body>
+</html>

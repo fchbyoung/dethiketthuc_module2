@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Country</title>
+</head>
+<body>
+<h1>Edit Country</h1>
+<p>
+    <a th:href="@{/quocgias}">Back to list Country</a>
+</p>
+
+<p th:if="${message}">
+<p th:text="${message}"></p>
+</p>
+<form th:action="@{/edit-country}" th:object="${country}" method="post">
+    <input th:type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Country</td>
+            <td><input type="text" th:field="*{countryName}"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update"></td>
+        </tr>
+    </table>
+</form>
+
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 package com.longnguyen.controller;
 
-import com.longnguyen.model.QuocGia;
-import com.longnguyen.service.QuocGiaService;
+import com.longnguyen.model.Country;
+import com.longnguyen.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,11 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class QuocGiaController {
 
     @Autowired
-    QuocGiaService quocGiaService;
+    CountryService countryService;
 
     @GetMapping("/quocgias")
     public ModelAndView danhSachQuocGia() {
-        Iterable<QuocGia> quocGias = quocGiaService.findAll();
+        Iterable<Country> quocGias = countryService.findAll();
         ModelAndView modelAndView = new ModelAndView("/quocgia/list");
         modelAndView.addObject("quocgias", quocGias);
         return modelAndView;
@@ -27,23 +27,23 @@ public class QuocGiaController {
     @GetMapping("/create-quocgia")
     public ModelAndView showCreateProvinceForm() {
         ModelAndView modelAndView = new ModelAndView("/quocgia/create");
-        modelAndView.addObject("quocgia", new QuocGia());
+        modelAndView.addObject("quocgia", new Country());
         return modelAndView;
     }
 
     @PostMapping("/create-quocgia")
-    public ModelAndView saveQuocGia(@ModelAttribute("quocgia") QuocGia quocgia) {
-        quocGiaService.save(quocgia);
+    public ModelAndView saveQuocGia(@ModelAttribute("quocgia") Country quocgia) {
+        countryService.save(quocgia);
 
         ModelAndView modelAndView = new ModelAndView("/quocgia/create");
-        modelAndView.addObject("quocgia", new QuocGia());
+        modelAndView.addObject("quocgia", new Country());
         modelAndView.addObject("message", "Created.");
         return modelAndView;
     }
 
     @GetMapping("/edit-quocgia/{id}")
     public ModelAndView hienThiForm(@PathVariable Long id) {
-        QuocGia quocgia = quocGiaService.findById(id);
+        Country quocgia = countryService.findById(id);
         if (quocgia != null) {
             ModelAndView modelAndView = new ModelAndView("/quocgia/edit");
             modelAndView.addObject("quocgia", quocgia);
@@ -55,8 +55,8 @@ public class QuocGiaController {
     }
 
     @PostMapping("/edit-quocgia")
-    public ModelAndView updateProvince(@ModelAttribute("quocgia") QuocGia quocgia) {
-        quocGiaService.save(quocgia);
+    public ModelAndView updateProvince(@ModelAttribute("quocgia") Country quocgia) {
+        countryService.save(quocgia);
         ModelAndView modelAndView = new ModelAndView("/quocgia/edit");
         modelAndView.addObject("quocgia", quocgia);
         modelAndView.addObject("message", "Updated.");
@@ -65,7 +65,7 @@ public class QuocGiaController {
 
     @GetMapping("/delete-quocgia/{id}")
     public ModelAndView showDeleteProvinceForm(@PathVariable Long id) {
-        QuocGia quocgia = quocGiaService.findById(id);
+        Country quocgia = countryService.findById(id);
 
         if (quocgia != null) {
             ModelAndView modelAndView = new ModelAndView("/quocgia/delete");
@@ -78,8 +78,8 @@ public class QuocGiaController {
     }
 
     @PostMapping("/delete-quocgia")
-    public String deleteProvice(@ModelAttribute("quocgia") QuocGia quocgia) {
-        quocGiaService.remove(quocgia.getId());
+    public String deleteProvice(@ModelAttribute("quocgia") Country quocgia) {
+        countryService.remove(quocgia.getId());
         return "redirect:quocgias";
     }
 }

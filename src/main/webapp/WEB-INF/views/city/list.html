@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List City</title>
+
+</head>
+<body>
+<h1>List City</h1>
+<p>
+    <a th:href="@{/create-city}">Create new city</a>
+    <a style="margin-left: 50px;" th:href="@{/thanhphos}">List Country</a>
+</p>
+
+<form>
+    <input type="text" name="search">
+    <input type="submit" value="Search">
+</form><br/>
+<table border="1">
+    <tr>
+        <td>City</td>
+        <td>Country</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+
+    <th:block th:each="city : ${cities}">
+        <tr>
+            <td><a th:href="@{/view-city/__${city.id}__}" th:text="${city.cityName}"></a></td>
+            <td th:text="${city.country.countryName}"></td>
+            <td><a th:href="@{/edit-city/__${city.id}__}">Edit</a></td>
+            <td><a th:href="@{/delete-city/__${city.id}__}">Delete</a></td>
+        </tr>
+    </th:block>
+</table>
+
+</body>
+</html>

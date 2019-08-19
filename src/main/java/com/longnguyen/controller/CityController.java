@@ -1,13 +1,10 @@
 package com.longnguyen.controller;
 
-import com.longnguyen.model.QuocGia;
-import com.longnguyen.model.ThanhPho;
-import com.longnguyen.service.QuocGiaService;
-import com.longnguyen.service.ThanhPhoService;
+import com.longnguyen.model.Country;
+import com.longnguyen.model.City;
+import com.longnguyen.service.CountryService;
+import com.longnguyen.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,24 +15,24 @@ import java.util.Optional;
 public class ThanhPhoController {
 
     @Autowired
-    ThanhPhoService thanhPhoService;
+    CityService cityService;
 
     @Autowired
-    QuocGiaService quocGiaService;
+    CountryService countryService;
 
     @ModelAttribute("quocgias")
-    public Iterable<QuocGia> provinces() {
-        return quocGiaService.findAll();
+    public Iterable<Country> provinces() {
+        return countryService.findAll();
     }
 
     @GetMapping("/thanhphos")
     public ModelAndView listCustomer(@RequestParam("search") Optional<String> search){
-        Iterable<ThanhPho> thanhphos;
+        Iterable<City> thanhphos;
 
         if (search.isPresent()) {
-            thanhphos = thanhPhoService.findAllByTenThanhPhoContaining(search.get());
+            thanhphos = cityService.findAllByTenThanhPhoContaining(search.get());
         } else {
-            thanhphos = thanhPhoService.findAll();
+            thanhphos = cityService.findAll();
         }
 
         ModelAndView modelAndView = new ModelAndView("/thanhpho/list");
@@ -47,13 +44,13 @@ public class ThanhPhoController {
     @GetMapping("/create-thanhpho")
     public ModelAndView hienThiFormThemMoi() {
         ModelAndView modelAndView = new ModelAndView("/thanhpho/create");
-        modelAndView.addObject("thanhpho", new ThanhPho());
+        modelAndView.addObject("thanhpho", new City());
         return modelAndView;
     }
 
     @PostMapping("/create-thanhpho")
-    public ModelAndView saveCustomer(@ModelAttribute("thanhpho") ThanhPho thanhpho) {
-        thanhPhoService.save(thanhpho);
+    public ModelAndView saveCustomer(@ModelAttribute("thanhpho") City thanhpho) {
+        cityService.save(thanhpho);
         ModelAndView modelAndView = new ModelAndView("/thanhpho/create");
         modelAndView.addObject("thanhpho", thanhpho);
         modelAndView.addObject("message", "Created.");
@@ -62,7 +59,7 @@ public class ThanhPhoController {
 
     @GetMapping("/edit-thanhpho/{id}")
     public ModelAndView hienThiFormSua(@PathVariable Long id) {
-        ThanhPho thanhpho = thanhPhoService.findById(id);
+        City thanhpho = cityService.findById(id);
         if (thanhpho != null) {
             ModelAndView modelAndView = new ModelAndView("/thanhpho/edit");
             modelAndView.addObject("thanhpho", thanhpho);
@@ -74,8 +71,8 @@ public class ThanhPhoController {
     }
 
     @PostMapping("/edit-thanhpho")
-    public ModelAndView LuuThanhPho(@ModelAttribute("thanhpho") ThanhPho thanhpho) {
-        thanhPhoService.save(thanhpho);
+    public ModelAndView LuuThanhPho(@ModelAttribute("thanhpho") City thanhpho) {
+        cityService.save(thanhpho);
         ModelAndView modelAndView = new ModelAndView("/thanhpho/edit");
         modelAndView.addObject("thanhpho", thanhpho);
         modelAndView.addObject("message", "Updated.");
@@ -84,7 +81,7 @@ public class ThanhPhoController {
 
     @GetMapping("/delete-thanhpho/{id}")
     public ModelAndView hienThiFormXoa(@PathVariable Long id) {
-        ThanhPho thanhpho = thanhPhoService.findById(id);
+        City thanhpho = cityService.findById(id);
         if (thanhpho == null) {
             return new ModelAndView("/error-404");
         }
@@ -95,14 +92,14 @@ public class ThanhPhoController {
     }
 
     @PostMapping("/delete-thanhpho")
-    public String xoaThanhPho(@ModelAttribute("thanhpho") ThanhPho thanhpho) {
-        thanhPhoService.remove(thanhpho.getId());
+    public String xoaThanhPho(@ModelAttribute("thanhpho") City thanhpho) {
+        cityService.remove(thanhpho.getId());
         return "redirect:thanhphos";
     }
 
     @GetMapping("/view-thanhpho/{id}")
     public ModelAndView thongTinThanhPho(@PathVariable Long id) {
-        ThanhPho thanhpho = thanhPhoService.findById(id);
+        City thanhpho = cityService.findById(id);
         if (thanhpho == null) {
             return new ModelAndView("/error-404");
         }

@@ -2,22 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Xóa Quốc Gia</title>
+    <title>Delete Country</title>
 </head>
 <body>
-<h1>Xóa Quốc Gia</h1>
+<h1>Delete Country</h1>
 
-<form th:action="@{/delete-quocgia}" th:object="${quocgia}" method="post">
+<form th:action="@{/delete-country}" th:object="${country}" method="post">
     <input th:type="hidden" th:field="*{id}">
     <table>
         <tr>
-            <td>Tên Quốc Gia:</td>
-            <td th:text="${quocgia.tenQuocGia}"></td>
+            <td>Country:</td>
+            <td th:text="${country.countryName}"></td>
         </tr>
 
         <tr>
             <td></td>
-            <td><input type="submit" value="Xóa"></td>
+            <td><input type="submit" value="Delete"></td>
         </tr>
     </table>
 </form>
