@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chỉnh sửa tên thành phố</title>
+</head>
+<body>
+<h1>Chỉnh sửa tên Thành Phố</h1>
+<p>
+    <a th:href="@{/thanhphos}">Danh sách Thành phố</a>
+</p>
+
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+<form th:action="@{/edit-thanhpho}" th:object="${thanhpho}" method="post">
+    <input th:type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Thành Phố</td>
+            <td><input th:type="text" th:field="*{tenThanhPho}"></td>
+        </tr>
+
+        <tr>
+            <td>Quốc Gia</td>
+            <td>
+                <select th:field="*{quocGia}">
+                    <option th:each="q : ${quocgias}" th:value="${q.id}" th:text="${q.tenQuocGia}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Diện tích</td>
+            <td><input th:type="text" th:field="*{dienTich}"></td>
+        </tr>
+
+        <tr>
+            <td>Dân số</td>
+            <td><input th:type="text" th:field="*{danSo}"></td>
+        </tr>
+
+        <tr>
+            <td>GDP</td>
+            <td><input th:type="text" th:field="*{GDP}"></td>
+        </tr>
+
+        <tr>
+            <td>Giới thiệu</td>
+            <td><textarea th:rows="5" th:cols="20" th:field="*{moTaThanhPho}" /></td>
+        </tr>
+
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Cập nhật"></td>
+        </tr>
+
+    </table>
+</form>
+
+
+
+</body>
+</html>

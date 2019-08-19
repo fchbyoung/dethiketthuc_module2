@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa Quốc Gia</title>
+</head>
+<body>
+<h1>Xóa Quốc Gia</h1>
+
+<form th:action="@{/delete-quocgia}" th:object="${quocgia}" method="post">
+    <input th:type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Tên Quốc Gia:</td>
+            <td th:text="${quocgia.tenQuocGia}"></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Xóa"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

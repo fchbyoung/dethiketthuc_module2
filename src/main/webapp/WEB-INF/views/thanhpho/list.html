@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách thành phố</title>
+
+</head>
+<body>
+<h1>Danh sách thành phố</h1>
+<p>
+    <a th:href="@{/create-thanhpho}">Thêm thành phố</a>
+    <a style="margin-left: 50px;" th:href="@{/thanhphos}">Danh sách quốc gia</a>
+</p>
+
+<form>
+    <input type="text" name="search">
+    <input type="submit" value="Search">
+</form><br/>
+<table border="1">
+    <tr>
+        <td>Thành phố</td>
+        <td>Quốc gia</td>
+        <td>View</td>
+        <td>Chỉnh sửa</td>
+        <td>Xóa</td>
+    </tr>
+
+    <th:block th:each="thanhpho : ${thanhphos}">
+        <tr>
+            <td th:text="${thanhpho.tenThanhPho}"></td>
+            <td th:text="${thanhpho.quocGia.tenQuocGia}"></td>
+            <td><a th:href="@{/view-thanhpho/__${thanhpho.id}__}">Infor</a></td>
+            <td><a th:href="@{/edit-thanhpho/__${thanhpho.id}__}">Sửa</a></td>
+            <td><a th:href="@{/delete-thanhpho/__${thanhpho.id}__}">Xóa</a></td>
+        </tr>
+    </th:block>
+
+</table>
+
+</body>
+</html>
